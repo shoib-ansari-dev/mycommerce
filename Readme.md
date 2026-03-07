@@ -14,3 +14,4 @@
 3. Order Service
 4. Payment Service
 5. Common Services
+6. Product Service
