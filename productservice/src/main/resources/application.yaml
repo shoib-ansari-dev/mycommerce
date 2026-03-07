@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: ${SPRING_APPLICATION_NAME:productservice}
+
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:6100/postgres}
+    username: ${DATASOURCE_USERNAME:user}
+    password: ${DATASOURCE_PASSWORD:pass}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${HIBERNATE_DDL_AUTO:update}
+    show-sql: ${SHOW_SQL:true}
+    properties:
+      hibernate:
+        dialect: ${HIBERNATE_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+
+  flyway:
+    enabled: ${FLYWAY_ENABLED:true}
+    baseline-on-migration: ${FLYWAY_BASELINE_ON_MIGRATION:true}
+
+server:
+  port: ${SERVER_PORT:9110}
