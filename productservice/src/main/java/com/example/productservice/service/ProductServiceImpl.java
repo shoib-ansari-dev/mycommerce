@@ -16,12 +16,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Products> getAllProducts() {
-        return productRepository.getAllProducts();
+        return productRepository.findAll();
     }
 
     @Override
     public Products getProductById(Long id) {
-        Optional<Products> searchedProduct= productRepository.getProductById(id);
+        Optional<Products> searchedProduct= productRepository.findById(id);
         if(searchedProduct.isEmpty()){
             throw new RuntimeException("Product not found with id: " + id);
         }
@@ -30,22 +30,23 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Products saveProduct(Products products) {
-        return productRepository.saveProduct(products);
+        return productRepository.save(products);
     }
 
     @Override
     public Products updateProductsPut(Products products) {
-        Optional<Products> productsOptional= productRepository.getProductById(products.getId());
+        Optional<Products> productsOptional= productRepository.findById(products.getId());
+
         if (productsOptional.isEmpty()){
             throw new RuntimeException("Product not found with id: " + products.getId());
         }
         productRepository.deleteById(products.getId());
-        return productRepository.saveProduct(products);
+        return productRepository.save(products);
     }
 
     @Override
     public Products updateProductsPatch(Products products) {
-        Optional<Products> productsOptional= productRepository.getProductById(products.getId());
+        Optional<Products> productsOptional= productRepository.findById(products.getId());
         if(productsOptional.isEmpty()){
             throw new RuntimeException("Product not found with id: " + products.getId());
         }
