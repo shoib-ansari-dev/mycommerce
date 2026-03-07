@@ -1,33 +1,41 @@
 package com.example.productservice.controller;
 
 import com.example.productservice.api.ProductsApi;
+import com.example.productservice.entity.Products;
+import com.example.productservice.service.ProductServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ProductsController implements ProductsApi {
 
+    @Autowired
+    private ProductServiceImpl productService;
+
     @Override
-    public String getProducts(){
-        return "I am returning Product";
+    public List<Products> getProducts(){
+        return productService.getAllProducts();
     }
 
     @Override
-    public String getProductById(@PathVariable("id") String id){
-        return "I am returning id +" + id;
+    public Products getProductById(@PathVariable("id") Long id){
+        return productService.getProductById(id);
     }
 
     @Override
-    public String saveProduct(@RequestBody String str){
-        return  " I am saving save the product";
+    public Products saveProduct(@RequestBody Products products){
+        return  productService.saveProduct(products);
     }
 
     @Override
-    public String updateProductPut(@RequestBody String str){
-        return "I am updating whole object";
+    public Products updateProductPut(@RequestBody Products products){
+        return productService.updateProductsPut(products);
     }
 
     @Override
-    public String updateProductPatch(@RequestBody String str){
-        return "I am updating via patch not whole object";
+    public Products updateProductPatch(@RequestBody Products products){
+        return productService.updateProductsPatch(products);
     }
 }

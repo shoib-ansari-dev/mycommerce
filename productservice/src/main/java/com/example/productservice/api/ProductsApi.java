@@ -1,21 +1,24 @@
 package com.example.productservice.api;
 
+import com.example.productservice.entity.Products;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/products")
 public interface ProductsApi {
     @GetMapping
-    String getProducts();
+    List<Products> getProducts();
 
     @GetMapping("/{id}")
-    String getProductById(@PathVariable String id);
+    Products getProductById(@PathVariable Long id);
 
     @PostMapping
-    String saveProduct(@RequestBody String str);
+    Products saveProduct(@RequestBody Products products);
 
     @PutMapping
-    String updateProductPut(@RequestBody String str);
+    Products updateProductPut(@RequestBody Products products);
 
     @PatchMapping
-    String updateProductPatch(@RequestBody String str);
+    Products updateProductPatch(@RequestBody Products products);
 }
