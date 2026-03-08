@@ -1,6 +1,8 @@
 package com.example.productservice.api;
 
+import com.example.productservice.dto.ProductFilter;
 import com.example.productservice.entity.Products;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,12 +11,7 @@ import java.util.List;
 @RequestMapping("/products")
 public interface ProductsApi {
     @GetMapping
-    Page<Products> getProducts(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "name") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDir
-    );
+    Page<Products> getProducts(@Valid ProductFilter productFilter);
 
     @GetMapping("/{id}")
     Products getProductById(@PathVariable Long id);

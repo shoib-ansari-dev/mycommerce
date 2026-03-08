@@ -1,35 +1,70 @@
 package com.example.productservice.service;
 
+import com.example.productservice.dto.ProductFilter;
 import com.example.productservice.entity.Products;
+import com.example.productservice.exception.ResourceNotFoundException;
 import com.example.productservice.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    @Autowired
-    private ProductRepository productRepository;
+
+    private final ProductRepository productRepository;
+
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
 
     @Override
-    public Page<Products> getAllProducts(int page, int size, String sortBy, String sortDir) {
-        Sort sort= sortDir.equalsIgnoreCase("ASC")? Sort.by(sortBy).ascending(): Sort.by(sortBy).descending();
-        Pageable pageable= PageRequest.of(page, size, sort);
-        return productRepository.findAll(pageable);
+    public Page<Products> getAllProducts(ProductFilter productFilter) {
+        Sort sort= productFilter.getSortBy().equalsIgnoreCase("ASC")?
+                Sort.by(productFilter.getSortBy()).ascending():
+                Sort.by(productFilter.getSortBy()).descending();
+
+        Pageable pageable= PageRequest.of(productFilter.getPage(), productFilter.getSize(), sort);
+
+        Specification<Products> productsSpecification = (_, _, _) -> null;
+
+        if (productFilter.getKeyword() != null && !productFilter.getKeyword().isEmpty()) {
+            productsSpecification = productsSpecification.and((root, _, cb) ->
+                    cb.like(cb.lower(root.get("name")), "%" + productFilter.getKeyword().toLowerCase() + "%"));
+        }
+        if (productFilter.getCategoryId() != null) {
+            productsSpecification = productsSpecification.and((root, _, cb) ->
+                    cb.equal(root.get("categoryId"), productFilter.getCategoryId()));
+        }
+
+        if (productFilter.getMinPrice() != null) {
+            productsSpecification = productsSpecification.and((root, _, cb) ->
+                    cb.ge(root.get("price"), productFilter.getMinPrice()));
+        }
+
+        if (productFilter.getMaxPrice() != null) {
+            productsSpecification = productsSpecification.and((root, _, cb) ->
+                    cb.le(root.get("price"), productFilter.getMaxPrice()));
+        }
+
+        if (productFilter.getBrand() != null && !productFilter.getBrand().isEmpty()) {
+            productsSpecification = productsSpecification.and((root, _, cb) ->
+                    cb.like(cb.lower(root.get("brand")), "%" + productFilter.getBrand().toLowerCase() + "%"));
+        }
+
+        return productRepository.findAll( productsSpecification,pageable);
     }
 
     @Override
     public Products getProductById(Long id) {
         Optional<Products> searchedProduct= productRepository.findById(id);
         if(searchedProduct.isEmpty()){
-            throw new RuntimeException("Product not found with id: " + id);
+            throw new ResourceNotFoundException("Product not found with id: " + id);
         }
         return searchedProduct.get();
     }
