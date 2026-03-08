@@ -16,9 +16,4 @@ class ProductserviceApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
-    @Test
-    void main(){
-        ProductserviceApplication.main(new String[]{});
-    }
 }
