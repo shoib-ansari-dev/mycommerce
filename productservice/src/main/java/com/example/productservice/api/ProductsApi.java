@@ -1,17 +1,15 @@
 package com.example.productservice.api;
 
-import com.example.productservice.dto.ProductFilter;
+import com.example.productservice.dto.ProductFilterDTO;
 import com.example.productservice.entity.Products;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequestMapping("/products")
 public interface ProductsApi {
     @GetMapping
-    Page<Products> getProducts(@Valid ProductFilter productFilter);
+    Page<Products> getProducts(@Valid ProductFilterDTO productFilterDTO);
 
     @GetMapping("/{id}")
     Products getProductById(@PathVariable Long id);

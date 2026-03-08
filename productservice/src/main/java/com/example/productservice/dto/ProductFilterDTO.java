@@ -6,7 +6,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class ProductFilter {
+public class ProductFilterDTO {
 
     @Size(max = 100, message = "Search Keyword must not exceed 100 character limit")
     @Pattern(

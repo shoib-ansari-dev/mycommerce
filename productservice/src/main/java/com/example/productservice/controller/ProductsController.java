@@ -1,8 +1,9 @@
 package com.example.productservice.controller;
 
 import com.example.productservice.api.ProductsApi;
-import com.example.productservice.dto.ProductFilter;
+import com.example.productservice.dto.ProductFilterDTO;
 import com.example.productservice.entity.Products;
+import com.example.productservice.service.ProductService;
 import com.example.productservice.service.ProductServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ProductsController implements ProductsApi {
 
-    @Autowired
-    private ProductServiceImpl productService;
+    private final ProductServiceImpl productService;
 
+    public ProductsController(ProductServiceImpl productService){
+        this.productService= productService;
+    }
     @Override
-    public Page<Products> getProducts(ProductFilter productFilter){
-        return productService.getAllProducts( productFilter);
+    public Page<Products> getProducts(ProductFilterDTO productFilterDTO){
+        return productService.getAllProducts(productFilterDTO);
     }
 
     @Override
