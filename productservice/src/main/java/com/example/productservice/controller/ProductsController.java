@@ -4,11 +4,9 @@ import com.example.productservice.api.ProductsApi;
 import com.example.productservice.entity.Products;
 import com.example.productservice.service.ProductServiceImpl;
 import jakarta.validation.Valid;
-import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 // TODO: Add Pagination for products only
 // TODO: Add Validation and productservice is to be done
