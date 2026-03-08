@@ -5,6 +5,8 @@ import com.example.productservice.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +19,10 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public Page<Products> getAllProducts(int page, int size) {
-        return productRepository.findAll(PageRequest.of(page, size));
+    public Page<Products> getAllProducts(int page, int size, String sortBy, String sortDir) {
+        Sort sort= sortDir.equalsIgnoreCase("ASC")? Sort.by(sortBy).ascending(): Sort.by(sortBy).descending();
+        Pageable pageable= PageRequest.of(page, size, sort);
+        return productRepository.findAll(pageable);
     }
 
     @Override

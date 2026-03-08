@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    Page<Products> getAllProducts(int page, int size);
+    Page<Products> getAllProducts(int page, int size, String sortBy, String sortDir);
 
     Products getProductById(Long id);
 

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-// TODO: Add Pagination for products only
 // TODO: Add Validation and productservice is to be done
 // TODO: check if any config is needed as well DTO
 
@@ -19,8 +18,8 @@ public class ProductsController implements ProductsApi {
     private ProductServiceImpl productService;
 
     @Override
-    public Page<Products> getProducts(int page, int size){
-        return productService.getAllProducts( page, size);
+    public Page<Products> getProducts(int page, int size, String sortBy, String sortDir){
+        return productService.getAllProducts( page, size, sortBy, sortDir);
     }
 
     @Override
