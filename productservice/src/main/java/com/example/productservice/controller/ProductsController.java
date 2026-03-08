@@ -10,11 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-// TODO: Add Validation and productservice is to be done
-// TODO: check if any config is needed as well DTO
-// TODO: Write Test Cases
-// TODO: write openapi docs
-
 @RestController
 public class ProductsController implements ProductsApi {
 
