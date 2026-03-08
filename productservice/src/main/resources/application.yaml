@@ -1,23 +1,30 @@
 spring:
   application:
-    name: ${SPRING_APPLICATION_NAME:productservice}
+    name:productservice
 
   datasource:
-    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:6100/postgres}
-    username: ${DATASOURCE_USERNAME:user}
-    password: ${DATASOURCE_PASSWORD:pass}
+    url: jdbc:postgresql://localhost:6100/postgres
+    username: user
+    password: pass
 
   jpa:
     hibernate:
-      ddl-auto: ${HIBERNATE_DDL_AUTO:update}
-    show-sql: ${SHOW_SQL:true}
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
-        dialect: ${HIBERNATE_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   flyway:
-    enabled: ${FLYWAY_ENABLED:true}
-    baseline-on-migration: ${FLYWAY_BASELINE_ON_MIGRATION:true}
+    enabled: true
+    baselin-on-migration: true
+
+
+springdoc:
+  api-docs:
+    path: /v1
+  swagger-ui:
+    path: /swagger-ui
 
 server:
-  port: ${SERVER_PORT:9110}
+  port: 9110

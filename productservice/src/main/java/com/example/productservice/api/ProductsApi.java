@@ -6,7 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/products")
+@RequestMapping("v1/products")
 public interface ProductsApi {
     @GetMapping
     Page<Products> getProducts(@Valid ProductFilterDTO productFilterDTO);
