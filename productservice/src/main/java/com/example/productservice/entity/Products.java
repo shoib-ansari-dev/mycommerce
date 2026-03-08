@@ -5,6 +5,8 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @Entity
@@ -23,24 +25,24 @@ public class Products {
 
     @PositiveOrZero(message = "Weight must be zero or positive")
     @Column(precision = 5, scale = 2)
-    private Double weight;
+    private BigDecimal weight;
 
     @PositiveOrZero(message = "Length must be zero or positive")
     @Column(name = "length_cm", precision = 5, scale = 2)
-    private Double length;
+    private BigDecimal length;
 
     @PositiveOrZero(message = "Width must be zero or positive")
     @Column(name = "width_cm", precision = 5, scale = 2)
-    private Double width;
+    private BigDecimal width;
 
     @PositiveOrZero(message = "Height must be zero or positive")
     @Column(name = "height_cm", precision = 5, scale = 2)
-    private Double height;
+    private BigDecimal height;
 
     @NotNull(message = "Price is required")
     @Positive(message = "Price must be positive")
     @Column(nullable = false, precision = 5, scale = 2)
-    private Double price;
+    private BigDecimal price;
 
     @NotNull(message = "Supplier is required")
     @ManyToOne
