@@ -8,11 +8,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Swagger/OpenAPI documented interface for Product management.
- */
 @Tag(name = "Products", description = "Endpoints for managing products")
 @RequestMapping("v1/products")
 public interface ProductsApi {
@@ -23,7 +21,7 @@ public interface ProductsApi {
             @ApiResponse(responseCode = "200", description = "List of products retrieved successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid filter criteria")
     })
-    Page<Products> getProducts(@Valid ProductFilterDTO productFilterDTO);
+    ResponseEntity<Page<Products>> getProducts(@Valid ProductFilterDTO productFilterDTO);
 
     @GetMapping("/{id}")
     @Operation(summary = "Get product by ID", description = "Returns a single product by its unique ID")
@@ -31,7 +29,7 @@ public interface ProductsApi {
             @ApiResponse(responseCode = "200", description = "Product found"),
             @ApiResponse(responseCode = "404", description = "Product not found")
     })
-    Products getProductById(@PathVariable Long id);
+    ResponseEntity<Products> getProductById(@PathVariable Long id);
 
     @PostMapping
     @Operation(summary = "Create a new product", description = "Adds a new product to the system")
@@ -39,7 +37,7 @@ public interface ProductsApi {
             @ApiResponse(responseCode = "201", description = "Product created successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid product data")
     })
-    Products saveProduct(@RequestBody Products products);
+    ResponseEntity<Products> saveProduct(@RequestBody Products products);
 
     @PutMapping
     @Operation(summary = "Update a product (PUT)", description = "Updates an existing product fully")
@@ -47,7 +45,7 @@ public interface ProductsApi {
             @ApiResponse(responseCode = "200", description = "Product updated successfully"),
             @ApiResponse(responseCode = "404", description = "Product not found")
     })
-    Products updateProductPut(@RequestBody Products products);
+    ResponseEntity<Products> updateProductPut(@RequestBody Products products);
 
     @PatchMapping
     @Operation(summary = "Update a product (PATCH)", description = "Updates an existing product partially")
@@ -55,5 +53,5 @@ public interface ProductsApi {
             @ApiResponse(responseCode = "200", description = "Product updated successfully"),
             @ApiResponse(responseCode = "404", description = "Product not found")
     })
-    Products updateProductPatch(@RequestBody Products products);
+    ResponseEntity<Products> updateProductPatch(@RequestBody Products products);
 }
