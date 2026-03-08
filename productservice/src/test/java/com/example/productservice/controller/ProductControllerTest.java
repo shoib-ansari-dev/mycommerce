@@ -1,4 +1,4 @@
-package com.example.productservice.controller;
-
-public class ProductControllerTest {
-}
+//package com.example.productservice.controller;
+//
+//public class ProductControllerTest {
+//}
