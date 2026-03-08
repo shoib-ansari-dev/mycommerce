@@ -17,8 +17,8 @@ class ProductserviceApplicationTests {
 	void contextLoads() {
 	}
 
-//    @Test
-//    void main(){
-//        ProductserviceApplication.main(new String[]{});
-//    }
+    @Test
+    void main(){
+        ProductserviceApplication.main(new String[]{});
+    }
 }
