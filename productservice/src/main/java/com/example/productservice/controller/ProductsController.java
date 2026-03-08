@@ -3,6 +3,7 @@ package com.example.productservice.controller;
 import com.example.productservice.api.ProductsApi;
 import com.example.productservice.entity.Products;
 import com.example.productservice.service.ProductServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,7 @@ public class ProductsController implements ProductsApi {
     }
 
     @Override
-    public Products saveProduct(@RequestBody Products products){
+    public Products saveProduct(@Valid @RequestBody Products products){
         return  productService.saveProduct(products);
     }
 
