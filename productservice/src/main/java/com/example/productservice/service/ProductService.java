@@ -1,12 +1,13 @@
 package com.example.productservice.service;
 
 import com.example.productservice.entity.Products;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    List<Products> getAllProducts();
+    Page<Products> getAllProducts(int page, int size);
 
     Products getProductById(Long id);
 

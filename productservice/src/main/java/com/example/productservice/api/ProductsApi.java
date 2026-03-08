@@ -1,6 +1,7 @@
 package com.example.productservice.api;
 
 import com.example.productservice.entity.Products;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,7 +9,10 @@ import java.util.List;
 @RequestMapping("/products")
 public interface ProductsApi {
     @GetMapping
-    List<Products> getProducts();
+    Page<Products> getProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    );
 
     @GetMapping("/{id}")
     Products getProductById(@PathVariable Long id);

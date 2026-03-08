@@ -4,10 +4,15 @@ import com.example.productservice.api.ProductsApi;
 import com.example.productservice.entity.Products;
 import com.example.productservice.service.ProductServiceImpl;
 import jakarta.validation.Valid;
+import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+// TODO: Add Pagination for products only
+// TODO: Add Validation and productservice is to be done
+// TODO: check if any config is needed as well DTO
 
 @RestController
 public class ProductsController implements ProductsApi {
@@ -16,8 +21,8 @@ public class ProductsController implements ProductsApi {
     private ProductServiceImpl productService;
 
     @Override
-    public List<Products> getProducts(){
-        return productService.getAllProducts();
+    public Page<Products> getProducts(int page, int size){
+        return productService.getAllProducts( page, size);
     }
 
     @Override
