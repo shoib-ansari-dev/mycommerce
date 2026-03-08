@@ -25,41 +25,42 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Products> getAllProducts(ProductFilterDTO productFilterDTO) {
-        Sort sort= productFilterDTO.getSortBy().equalsIgnoreCase("ASC")?
-                Sort.by(productFilterDTO.getSortBy()).ascending():
+
+        Sort sort = productFilterDTO.getSortBy().equalsIgnoreCase("ASC") ?
+                Sort.by(productFilterDTO.getSortBy()).ascending() :
                 Sort.by(productFilterDTO.getSortBy()).descending();
 
-        Pageable pageable= PageRequest.of(productFilterDTO.getPage(), productFilterDTO.getSize(), sort);
+        Pageable pageable = PageRequest.of(productFilterDTO.getPage(), productFilterDTO.getSize(), sort);
 
-        Specification<Products> productsSpecification = (_, _, _) -> null;
+        Specification<Products> productsSpecification = (root, query, cb) -> null;
 
         if (productFilterDTO.getKeyword() != null && !productFilterDTO.getKeyword().isEmpty()) {
-            productsSpecification = productsSpecification.and((root, _, cb) ->
+            productsSpecification = productsSpecification.and((root, query, cb) ->
                     cb.like(cb.lower(root.get("name")), "%" + productFilterDTO.getKeyword().toLowerCase() + "%"));
         }
+
         if (productFilterDTO.getCategoryId() != null) {
-            productsSpecification = productsSpecification.and((root, _, cb) ->
+            productsSpecification = productsSpecification.and((root, query, cb) ->
                     cb.equal(root.get("categoryId"), productFilterDTO.getCategoryId()));
         }
 
         if (productFilterDTO.getMinPrice() != null) {
-            productsSpecification = productsSpecification.and((root, _, cb) ->
+            productsSpecification = productsSpecification.and((root, query, cb) ->
                     cb.ge(root.get("price"), productFilterDTO.getMinPrice()));
         }
 
         if (productFilterDTO.getMaxPrice() != null) {
-            productsSpecification = productsSpecification.and((root, _, cb) ->
+            productsSpecification = productsSpecification.and((root, query, cb) ->
                     cb.le(root.get("price"), productFilterDTO.getMaxPrice()));
         }
 
         if (productFilterDTO.getBrand() != null && !productFilterDTO.getBrand().isEmpty()) {
-            productsSpecification = productsSpecification.and((root, _, cb) ->
+            productsSpecification = productsSpecification.and((root, query, cb) ->
                     cb.like(cb.lower(root.get("brand")), "%" + productFilterDTO.getBrand().toLowerCase() + "%"));
         }
 
-        return productRepository.findAll( productsSpecification,pageable);
+        return productRepository.findAll(productsSpecification, pageable);
     }
-
     @Override
     public Products getProductById(Long id) {
         Optional<Products> searchedProduct= productRepository.findById(id);
