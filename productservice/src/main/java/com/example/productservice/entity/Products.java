@@ -2,15 +2,17 @@ package com.example.productservice.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Entity
+@Builder
 @Table(name = "product")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
