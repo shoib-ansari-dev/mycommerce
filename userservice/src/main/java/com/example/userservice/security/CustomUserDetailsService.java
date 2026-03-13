@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         User foundUser= user.get();
         return org.springframework.security.core.userdetails.User
-                .withUsername(foundUser.getMail())
+                .withUsername(foundUser.getEmail())
                 .password(foundUser.getPassword())
                 .roles(foundUser.getRole().name())
                 .build();
