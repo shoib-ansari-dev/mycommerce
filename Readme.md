@@ -9,9 +9,10 @@
 
 
 ### Services it will have (may be added or removed as well)
-1. User Service
-2. Cart Service
-3. Order Service
-4. Payment Service
-5. Common Services
-6. Product Service
+1. Product Service
+2. User Service
+3. Cart Service
+4. Order Service
+5. Payment Service
+6. Common Services
+
