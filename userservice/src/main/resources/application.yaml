@@ -2,4 +2,7 @@ spring:
   application:
     name: orderservice
 
+jwt:
+  secret: mysecretkey
+  expiration: 3600
 
