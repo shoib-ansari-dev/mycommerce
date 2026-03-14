@@ -1,7 +1,8 @@
 package com.example.userservice.security;
 
-import com.example.userservice.entity.User;
+import com.example.userservice.entity.Users;
 import com.example.userservice.repository.UserRepository;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        Optional<User> user;
+        Optional<Users> user;
         try {
             user = userRepository.findByEmail(email);
         } catch (Exception e) {
@@ -28,8 +29,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         if(user.isPresent()){
             throw new RuntimeException("Username or password wrong");
         }
-        User foundUser= user.get();
-        return org.springframework.security.core.userdetails.User
+        Users foundUser= user.get();
+        return User
                 .withUsername(foundUser.getEmail())
                 .password(foundUser.getPassword())
                 .roles(foundUser.getRole().name())
