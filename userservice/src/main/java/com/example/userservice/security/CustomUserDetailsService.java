@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         } catch (Exception e) {
             throw new RuntimeException("Username or password wrong");
         }
-        if(user.isPresent()){
+        if(user.isEmpty()){
             throw new RuntimeException("Username or password wrong");
         }
         Users foundUser= user.get();
