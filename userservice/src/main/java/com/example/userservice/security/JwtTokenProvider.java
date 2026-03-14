@@ -7,6 +7,8 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,8 @@ import java.util.Date;
 
 @Slf4j
 @Component
+@AllArgsConstructor
+@NoArgsConstructor
 public class JwtTokenProvider {
 
     @Value("${jwt.secret}")
@@ -27,7 +31,7 @@ public class JwtTokenProvider {
     private SecretKey key;
 
     @PostConstruct
-    public void init(){
+    private void init(){
         key= Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
