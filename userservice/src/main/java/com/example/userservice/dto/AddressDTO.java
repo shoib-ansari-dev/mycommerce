@@ -3,10 +3,7 @@ package com.example.userservice.dto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class AddressDTO {
     private Long id;
 

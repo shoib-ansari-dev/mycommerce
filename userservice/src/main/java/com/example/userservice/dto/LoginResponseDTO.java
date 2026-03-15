@@ -5,10 +5,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class LoginResponseDTO {
     private Long id;
     private String name;
