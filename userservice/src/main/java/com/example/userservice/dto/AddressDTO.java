@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Data
+@Builder
 public class AddressDTO {
     private Long id;
 
